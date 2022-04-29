@@ -1,1 +1,1 @@
-export * from './contact-controller'
+export * from './contactController'
