@@ -36,6 +36,28 @@ class ContactRepository {
       resolve()
     })
   }
+
+  findByEmail (email) {
+    return new Promise((resolve) => {
+      const contact = contacts.find(contact => contact.email === email)
+      resolve(contact)
+    })
+  }
+
+  async create ({ name, email, phone, category_id }) {
+    return new Promise((resolve) => {
+      const newContact = {
+        id: v4(),
+        name,
+        email,
+        phone,
+        category_id
+      }
+
+      contacts.push(newContact)
+      resolve(newContact)
+    })
+  }
 }
 
 const contactRepository = new ContactRepository()
