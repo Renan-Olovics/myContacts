@@ -21,15 +21,14 @@ let contacts = [
 ]
 
 class ContactRepository {
-  findAll () {
-    return new Promise((resolve) => resolve(contacts))
+  async findAll () {
+    const rows = await db.Query('SELECT * FROM contacts')
+    return rows
   }
 
-  findById (id) {
-    return new Promise((resolve) => {
-      const contact = contacts.find(contact => contact.id === id)
-      resolve(contact)
-    })
+  async findById (id) {
+    const rows = await db.Query('SELECT * FROM contacts WHERE id = $1', [id])
+    return rows[0]
   }
 
   async delete (id) {
@@ -39,11 +38,9 @@ class ContactRepository {
     })
   }
 
-  findByEmail (email) {
-    return new Promise((resolve) => {
-      const contact = contacts.find(contact => contact.email === email)
-      resolve(contact)
-    })
+  async findByEmail (email) {
+    const rows = await db.Query('SELECT * FROM contacts WHERE email = $1', [email])
+    return rows[0]
   }
 
   async create ({ name, email, phone, category_id }) {
