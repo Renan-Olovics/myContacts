@@ -1,5 +1,7 @@
 import { v4 } from 'uuid'
 
+import * as db from '../../database'
+
 // eslint-disable-next-line prefer-const
 let contacts = [
   {
@@ -45,18 +47,12 @@ class ContactRepository {
   }
 
   async create ({ name, email, phone, category_id }) {
-    return new Promise((resolve) => {
-      const newContact = {
-        id: v4(),
-        name,
-        email,
-        phone,
-        category_id
-      }
-
-      contacts.push(newContact)
-      resolve(newContact)
-    })
+    const row = await db.Query(`
+      INSERT INTO contacts(name, email, phone, category_id)
+      values($1, $2, $3, $4)
+      RETURNING *
+    `, [name, email, phone, category_id])
+    return row[0]
   }
 
   async update (id, { name, email, phone, category_id }) {
