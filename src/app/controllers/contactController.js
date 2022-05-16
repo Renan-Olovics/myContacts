@@ -2,7 +2,8 @@ import { contactRepository } from '../repositories'
 
 class ContactController {
   async index (req, res) {
-    const contacts = await contactRepository.findAll()
+    const { orderBy } = req.query
+    const contacts = await contactRepository.findAll(orderBy)
     res.json(contacts)
   }
 
