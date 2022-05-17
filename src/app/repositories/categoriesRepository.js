@@ -7,7 +7,12 @@ class CategoriesRepository {
   }
 
   async delete (id) {
-    // TODO
+    const deleteOp = await db.Query(`
+    DELETE FROM categories
+    where id = $1
+    RETURNING *
+    `, [id])
+    return deleteOp
   }
 
   async create ({ name }) {

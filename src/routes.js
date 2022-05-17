@@ -12,5 +12,6 @@ router.put('/contacts/:id', contactController.update)
 
 router.get('/categories', categoryController.index)
 router.post('/categories', categoryController.store)
+router.delete('/categories/:id', categoryController.delete)
 
 export { router }

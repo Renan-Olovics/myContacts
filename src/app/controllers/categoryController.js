@@ -25,9 +25,10 @@ class CategoryController {
     res.send('ok - update')
   }
 
-  delete (req, res) {
-    // TODO
-    res.send('ok - delete')
+  async delete (req, res) {
+    const { id } = req.params
+    await categoriesRepository.delete(id)
+    res.sendStatus(204)
   }
 }
 
