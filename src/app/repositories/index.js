@@ -1,2 +1,2 @@
-export * from './contactRepository'
+export * from './contactsRepository'
 export * from './categoriesRepository'
