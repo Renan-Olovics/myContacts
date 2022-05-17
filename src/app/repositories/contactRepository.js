@@ -1,24 +1,4 @@
-import { v4 } from 'uuid'
-
 import * as db from '../../database'
-
-// eslint-disable-next-line prefer-const
-let contacts = [
-  {
-    id: v4(),
-    name: 'John Doe',
-    email: 'johnDoe@doe.com',
-    phone: '123123123',
-    category_id: v4()
-  },
-  {
-    id: v4(),
-    name: 'Donald Trump',
-    email: 'donaldTrump@trump.com',
-    phone: '123123445123',
-    category_id: v4()
-  }
-]
 
 class ContactRepository {
   async findAll (orderBy = 'ASC') {
@@ -33,10 +13,8 @@ class ContactRepository {
   }
 
   async delete (id) {
-    return new Promise((resolve) => {
-      contacts = contacts.filter(contact => contact.id !== id)
-      resolve()
-    })
+    const deleteOp = await db.Query('DELETE FROM contacts WHERE id = $1', [id])
+    return deleteOp
   }
 
   async findByEmail (email) {
