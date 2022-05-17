@@ -1,2 +1,2 @@
 export * from './contactController'
-export * from './categoryController.'
+export * from './categoryController'
