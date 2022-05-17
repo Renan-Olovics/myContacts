@@ -6,6 +6,11 @@ class CategoriesRepository {
     return rows
   }
 
+  async findById (id) {
+    const rows = await db.Query('SELECT * FROM categories WHERE id = $1', [id])
+    return rows[0]
+  }
+
   async delete (id) {
     const deleteOp = await db.Query(`
     DELETE FROM categories

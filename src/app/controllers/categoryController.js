@@ -15,9 +15,10 @@ class CategoryController {
     res.json(category)
   }
 
-  show (req, res) {
-    // TODO
-    res.send('ok - show')
+  async show (req, res) {
+    const { id } = req.params
+    const category = await categoriesRepository.findById(id)
+    res.json(category)
   }
 
   update (req, res) {
