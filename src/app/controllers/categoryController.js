@@ -21,9 +21,14 @@ class CategoryController {
     res.json(category)
   }
 
-  update (req, res) {
-    // TODO
-    res.send('ok - update')
+  async update (req, res) {
+    const { id } = req.params
+    const { name } = req.body
+
+    if (!name) return res.status(400).json({ error: 'Name is required' })
+
+    const categoryUpdated = await categoriesRepository.update(id, { name })
+    res.json(categoryUpdated)
   }
 
   async delete (req, res) {

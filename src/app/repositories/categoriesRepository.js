@@ -29,8 +29,14 @@ class CategoriesRepository {
     return row[0]
   }
 
-  async update (id) {
-    // TODO
+  async update (id, { name }) {
+    const row = await db.Query(`
+    UPDATE categories
+    SET name = $1
+    WHERE id = $2
+    RETURNING *
+    `, [name, id])
+    return row[0]
   }
 }
 
